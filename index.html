@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Missão Planeta TIC – VanBerto</title>
+
+<!-- ========================================================= -->
+<!--   ESTRELAS E METEOROS NO FUNDO (AGORA POR CIMA)           -->
+<!-- ========================================================= -->
+
+<style>
+/* ======== ESTRELAS A CAIR E A BRILHAR ✨ POR CIMA ======== */
+.star {
+  position: fixed;
+  top: -10px;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 9999; /* ⭐ AGORA PASSAM POR CIMA DE TUDO */
+  animation: starFall linear infinite, starTwinkle ease-in-out infinite;
+}
+
+/* Queda vertical simples */
+@keyframes starFall {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+/* Brilho pulsante */
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%      { opacity: 1; transform: scale(1.5); }
+}
+
+/* ======== METEOROS 🌠 (POR CIMA) ======== */
+.meteor {
+  position: fixed;
+  top: -20px;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg,#facc15,#f97316);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(250,204,21,0.9);
+  pointer-events: none;
+  z-index: 9999; /* meteoros passam por cima também */
+  transform-origin: center;
+  animation: meteorFall linear forwards;
+}
+
+/* Trajetória diagonal */
+@keyframes meteorFall {
+  0% {
+    transform: translate3d(0,0,0) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(-80vw,110vh,0) rotate(45deg);
+    opacity: 0;
+  }
+}
+</style>
+
+<script>
+/* ================= GERADOR DE ESTRELAS E METEOROS ================= */
+function criarEstrela() {
+  const estrela = document.createElement("div");
+  estrela.classList.add("star");
+
+  const t = Math.random() * 3 + 1;
+  estrela.style.width = t + "px";
+  estrela.style.height = t + "px";
+
+  estrela.style.left = Math.random() * window.innerWidth + "px";
+
+  const durQueda = Math.random() * 4 + 4;
+  const durBrilho = Math.random() * 1.5 + 1.5;
+  estrela.style.animationDuration = durQueda + "s, " + durBrilho + "s";
+
+  document.body.appendChild(estrela);
+  setTimeout(() => estrela.remove(), durQueda * 1000);
+}
+
+setInterval(criarEstrela, 120);
+
+/* ---- Meteoros ---- */
+function criarMeteoro() {
+  const m = document.createElement("div");
+  m.classList.add("meteor");
+
+  m.style.left = window.innerWidth * (0.6 + Math.random() * 0.4) + "px";
+
+  const dur = Math.random() * 3 + 4;
+  m.style.animationDuration = dur + "s";
+
+  document.body.appendChild(m);
+  setTimeout(() => m.remove(), dur * 1000);
+}
+
+function cicloMeteoros() {
+  criarMeteoro();
+  const delay = 4000 + Math.random() * 6000;
+  setTimeout(cicloMeteoros, delay);
+}
+
+window.addEventListener("load", cicloMeteoros);
+</script>
+
+<!-- ========================================================= -->
+<!--   ESTILOS DO JOGO                                         -->
+<!-- ========================================================= -->
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #020617;
+  margin: 0;
+  padding: 10px;
+  transition: background 0.4s ease;
+  overflow-x: hidden;
+}
+
+/* Fundos ilustrados */
+.scene-space      { background: radial-gradient(circle at top, #38bdf8, #020617); }
+.scene-nave       { background: radial-gradient(circle at top, #22c55e, #052e16); }
+.scene-lab        { background: radial-gradient(circle at top, #4f46e5, #020617); }
+.scene-core       { background: radial-gradient(circle at top, #16a34a, #022c22); }
+.scene-library    { background: radial-gradient(circle at top, #a855f7, #1e1b4b); }
+.scene-servidores { background: radial-gradient(circle at top, #0ea5e9, #0f172a); }
+.scene-chat       { background: radial-gradient(circle at top, #0369a1, #020617); }
+.scene-danger     { background: radial-gradient(circle at top, #ef4444, #450a0a); }
+.scene-neutral    { background: radial-gradient(circle at top, #6b7280, #020617); }
+.scene-ia         { background: radial-gradient(circle at top, #22c55e, #1d2837); }
+.scene-controle   { background: radial-gradient(circle at top, #fb7185, #4a044e); }
+.scene-happy      { background: radial-gradient(circle at top, #facc15, #78350f); }
+
+/* Caixa do jogo */
+#game {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  margin: 40px auto;
+  background: rgba(255,255,255,0.94);
+  border-radius: 20px;
+  padding: 18px 20px 26px 20px;
+  box-shadow: 0 10px 30px rgba(15,23,42,0.7);
+}
+
+/* Barra de progresso */
+#progress-wrapper {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto 14px auto;
+}
+#progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 999px;
+}
+#progress-fill {
+  height: 10px;
+  width: 0%;
+  background: linear-gradient(90deg,#22c55e,#0ea5e9);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+#progress-text {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* VanBerto base */
+.vb-robot {
+  width: 230px;
+  margin: 0 auto;
+  animation: vbFloat 3s ease-in-out infinite;
+}
+
+/* Dança MJ */
+.vb-robot.vb-dance {
+  animation: danceMJ 0.9s ease-in-out;
+}
+
+@keyframes vbFloat {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-8px); }
+}
+
+@keyframes danceMJ {
+  0%   { transform: translateX(0) rotate(0deg); }
+  15%  { transform: translateX(-8px) rotate(-10deg); }
+  30%  { transform: translateX(8px) rotate(8deg); }
+  45%  { transform: translateX(-6px) skewX(-10deg); }
+  60%  { transform: translateX(6px) skewX(10deg); }
+  75%  { transform: translateX(-4px) rotate(-8deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+/* Olhos e braço */
+.vb-eyelid {
+  transform-origin: 40px 23px;
+  animation: vbBlink 5s ease-in-out infinite;
+}
+@keyframes vbBlink {
+  0%,92%,100% { transform: scaleY(0); }
+  95%         { transform: scaleY(1); }
+}
+#vb-arm {
+  transform-origin: 63px 44px;
+  animation: waveVB 1.6s ease-in-out infinite;
+}
+@keyframes waveVB {
+  0%   { rotate: 0deg; }
+  25%  { rotate: -18deg; }
+  50%  { rotate: 0deg; }
+  75%  { rotate: -18deg; }
+  100% { rotate: 0deg; }
+}
+
+/* Textos */
+#tituloCena {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+#fala {
+  font-size: 21px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+#pergunta {
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+
+/* Botões */
+#choices button {
+  width: 95%;
+  max-width: 460px;
+  margin: 6px auto;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg,#0ea5e9,#0369a1);
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+#choices button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 14px rgba(15,23,42,0.55);
+}
+</style>
+</head>
+
+<body class="scene-space">
+
+<div id="game">
+
+  <!-- Barra de progresso -->
+  <div id="progress-wrapper">
+    <div id="progress-bar">
+      <div id="progress-fill"></div>
+    </div>
+    <div id="progress-text">Progresso da missão: 0%</div>
+  </div>
+
+  <!-- Robô VanBerto -->
+  <div id="vb-container">
+    <svg class="vb-robot" viewBox="0 0 80 80">
+      <defs>
+        <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e5f2ff"/>
+          <stop offset="100%" stop-color="#bfdbfe"/>
+        </linearGradient>
+        <linearGradient id="visorGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#22d3ee"/>
+          <stop offset="100%" stop-color="#38bdf8"/>
+        </linearGradient>
+      </defs>
+
+      <circle cx="40" cy="40" r="34" fill="rgba(147,197,253,0.35)"/>
+      <rect x="18" y="30" width="44" height="32" rx="14" fill="url(#bodyGrad)"/>
+      <circle cx="40" cy="46" r="7" fill="#9ca3af"/>
+      <rect x="22" y="10" width="36" height="26" rx="13" fill="url(#bodyGrad)"/>
+      <rect x="26" y="15" width="28" height="16" rx="8" fill="url(#visorGrad)"/>
+      <rect class="vb-eyelid" x="26" y="15" width="28" height="16" rx="8"
+            fill="#e5f2ff" opacity="0.9"/>
+      <circle cx="33" cy="23" r="2.5" fill="#0f172a"/>
+      <circle cx="47" cy="23" r="2.5" fill="#0f172a"/>
+      <line x1="40" y1="10" x2="40" y2="4" stroke="#38bdf8" stroke-width="2"/>
+      <circle cx="40" cy="3" r="2.5" fill="#38bdf8"/>
+      <rect x="12" y="34" width="6" height="20" rx="3" fill="#e5e7eb"/>
+      <rect id="vb-arm" x="62" y="34" width="6" height="20" rx="3" fill="#e5e7eb"/>
+      <rect x="22" y="58" width="12" height="8" rx="3" fill="#1f2937"/>
+      <rect x="46" y="58" width="12" height="8" rx="3" fill="#1f2937"/>
+    </svg>
+  </div>
+
+  <div id="tituloCena">Missão Planeta TIC</div>
+  <div id="fala">Olá, sou o VanBerto, o robô do Planeta TIC.</div>
+  <div id="pergunta">A tua nave acabou de aterrar num planeta digital instável. Vamos começar?</div>
+  <div id="choices"></div>
+</div>
+
+<script>
+/* ======== Sons retro ======== */
+let audioCtx = null;
+
+function playBeep(type) {
+  if (!window.AudioContext && !window.webkitAudioContext) return;
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const ctx = audioCtx;
+
+  if (type === 'fim') {
+    const notes = [660, 880, 990, 1320, 1760];
+    const now = ctx.currentTime;
+    notes.forEach((freq, i) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.type = 'square';
+      o.frequency.value = freq;
+      o.connect(g);
+      g.connect(ctx.destination);
+      const start = now + i * 0.16;
+      const end = start + 0.15;
+      g.gain.setValueAtTime(0.2, start);
+      g.gain.exponentialRampToValueAtTime(0.0001, end);
+      o.start(start);
+      o.stop(end);
+    });
+    return;
+  }
+
+  const o = ctx.createOscillator();
+  const g = ctx.createGain();
+  o.connect(g);
+  g.connect(ctx.destination);
+  o.type = 'square';
+
+  let freq = 880;
+  let dur  = 0.18;
+
+  if (type === 'erro') { freq = 220; dur = 0.25; }
+  if (type === 'neutro') { freq = 500; dur = 0.15; }
+
+  const now = ctx.currentTime;
+  o.frequency.value = freq;
+  g.gain.setValueAtTime(0.18, now);
+  g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+  o.start(now);
+  o.stop(now + dur);
+}
+
+/* ======== Dança VanBerto ======== */
+function danceVanBerto() {
+  const robo = document.querySelector(".vb-robot");
+  robo.classList.add("vb-dance");
+  setTimeout(() => robo.classList.remove("vb-dance"), 900);
+}
+
+/* ======== CENAS ======== */
+const cenas = {
+  inicio: {
+    titulo: "Chegada ao Planeta TIC",
+    bg: "scene-space",
+    fala: "Bem-vindo! Este planeta está cheio de falhas de segurança.",
+    pergunta: "O que queres fazer primeiro?",
+    opcoes: [
+      { texto: "Explorar a zona tecnológica cheia de cabos e robôs", next: "zonaTec", som: "ok" },
+      { texto: "Inspecionar a nave para ver se está protegida", next: "checkNave", som: "ok" }
+    ]
+  },
+
+  checkNave: {
+    titulo: "Check-up da Nave",
+    bg: "scene-nave",
+    fala: "A tua nave também usa contas e palavras-passe.",
+    pergunta: "O que é mais seguro?",
+    opcoes: [
+      { texto: "Atualizar sistema e antivírus", next: "zonaTec", som: "ok" },
+      { texto: "Desligar atualizações automáticas", next: "neutro", som: "neutro" },
+      { texto: "Colar password no painel", next: "fracasso", som: "erro" }
+    ]
+  },
+
+  zonaTec: {
+    titulo: "Zona Tecnológica",
+    bg: "scene-lab",
+    fala: "Chegámos à zona tecnológica cheia de cabos e robôs desligados.",
+    pergunta: "Que password deve ser usada?",
+    opcoes: [
+      { texto: "123456", next: "fracasso", som: "erro" },
+      { texto: "o_meu_nome_2024", next: "alerta", som: "erro" },
+      { texto: "R4m!T1C#", next: "robos", som: "ok" }
+    ]
+  },
+
+  alerta: {
+    titulo: "Alerta de Segurança",
+    bg: "scene-danger",
+    fala: "Essa password é fraca.",
+    pergunta: "O que fazes?",
+    opcoes: [
+      { texto: "Ignorar", next: "fracasso", som: "erro" },
+      { texto: "Criar password forte", next: "robos", som: "ok" }
+    ]
+  },
+
+  robos: {
+    titulo: "Robôs Ativados",
+    bg: "scene-lab",
+    fala: "Os robôs despertam e aguardam ordens.",
+    pergunta: "O que é prioridade?",
+    opcoes: [
+      { texto: "Proteger dados do planeta", next: "aprender", som: "ok" },
+      { texto: "Desligar alarmes", next: "fracasso", som: "erro" }
+    ]
+  },
+
+  aprender: {
+    titulo: "Sala de Aprendizagem",
+    bg: "scene-library",
+    fala: "Escolhe o que queres aprender:",
+    pergunta: "Por onde começas?",
+    opcoes: [
+      { texto: "Backups", next: "labDados", som: "ok" },
+      { texto: "Permissões", next: "permissoes", som: "ok" },
+      { texto: "Segurança em chats", next: "chat", som: "ok" }
+    ]
+  },
+
+  labDados: {
+    titulo: "Labirinto dos Dados",
+    bg: "scene-servidores",
+    fala: "Como proteger ficheiros?",
+    pergunta: "Escolhe a opção segura:",
+    opcoes: [
+      { texto: "Criar cópias de segurança", next: "backupNuvem", som: "ok" },
+      { texto: "Guardar no ambiente de trabalho", next: "fracasso", som: "erro" }
+    ]
+  },
+
+  backupNuvem: {
+    titulo: "Nuvem Segura",
+    bg: "scene-servidores",
+    fala: "A nuvem foi ativada!",
+    pergunta: "O que falta?",
+    opcoes: [
+      { texto: "Autenticação dupla", next: "permissoes", som: "ok" },
+      { texto: "Partilhar conta com todos", next: "fracasso", som: "erro" }
+    ]
+  },
+
+  permissoes: {
+    titulo: "Centro de Permissões",
+    bg: "scene-controle",
+    fala: "Controla quem pode ver o quê.",
+    pergunta: "O que é mais seguro?",
+    opcoes: [
+      { texto: "Acesso só a quem precisa", next: "chat", som: "ok" },
+      { texto: "Tudo público", next: "fracasso", som: "erro" }
+    ]
+  },
+
+  chat: {
+    titulo: "Chat Online",
+    bg: "scene-chat",
+    fala: "Alguém pede a tua morada.",
+    pergunta: "O que fazes?",
+    opcoes: [
+      { texto: "Dar morada", next: "fracasso", som: "erro" },
+      { texto: "Não responder e avisar adulto", next: "phishing", som: "ok" }
+    ]
+  },
+
+  phishing: {
+    titulo: "Email Suspeito",
+    bg: "scene-danger",
+    fala: "Recebeste um email com link duvidoso.",
+    pergunta: "Qual é a atitude correta?",
+    opcoes: [
+      { texto: "Clicar no link", next: "fracasso", som: "erro" },
+      { texto: "Ver remetente e apagar", next: "iaAjuda", som: "ok" }
+    ]
+  },
+
+  iaAjuda: {
+    titulo: "Inteligência Artificial",
+    bg: "scene-ia",
+    fala: "A IA confirma que era fraudulento.",
+    pergunta: "Como usar a IA?",
+    opcoes: [
+      { texto: "Verificar sempre a informação", next: "vitoria", som: "fim" },
+      { texto: "Acreditar sem verificar", next: "neutro", som: "neutro" }
+    ]
+  },
+
+  vitoria: {
+    titulo: "Missão Cumprida ⭐",
+    bg: "scene-happy",
+    fala: "Salvaste o Planeta TIC!",
+    pergunta: "Jogar novamente?",
+    opcoes: [
+      { texto: "Recomeçar", next: "inicio", som: "ok" }
+    ]
+  },
+
+  neutro: {
+    titulo: "Resultado Neutro",
+    bg: "scene-neutral",
+    fala: "Podes melhorar ainda mais.",
+    pergunta: "Voltar ao início?",
+    opcoes: [
+      { texto: "Sim", next: "inicio", som: "ok" }
+    ]
+  },
+
+  fracasso: {
+    titulo: "Sistema em Colapso",
+    bg: "scene-danger",
+    fala: "O sistema falhou!",
+    pergunta: "Tentar de novo?",
+    opcoes: [
+      { texto: "Recomeçar", next: "inicio", som: "ok" }
+    ]
+  }
+};
+
+/* ======== Progresso automático ======== */
+const visited = new Set();
+const TOTAL = Object.keys(cenas).length;
+
+function atualizarProgresso(id) {
+  if (id === "inicio") visited.clear();
+  visited.add(id);
+
+  const pct = Math.round((visited.size / TOTAL) * 100);
+  document.getElementById("progress-fill").style.width = pct + "%";
+  document.getElementById("progress-text").innerText =
+    "Progresso da missão: " + pct + "%";
+}
+
+/* ======== Motor do jogo ======== */
+function mostrarCena(id) {
+  const c = cenas[id];
+  document.body.className = c.bg;
+  atualizarProgresso(id);
+
+  document.getElementById("tituloCena").innerText = c.titulo;
+  document.getElementById("fala").innerText = c.fala;
+  document.getElementById("pergunta").innerText = c.pergunta;
+
+  const div = document.getElementById("choices");
+  div.innerHTML = "";
+
+  c.opcoes.forEach(op => {
+    const btn = document.createElement("button");
+    btn.innerText = op.texto;
+
+    btn.onclick = () => {
+      playBeep(op.som);
+      if (op.som === "ok" || op.som === "fim") danceVanBerto();
+      setTimeout(() => mostrarCena(op.next), 240);
+    };
+
+    div.appendChild(btn);
+  });
+}
+
+mostrarCena("inicio");
+</script>
+
+</body>
+</html>
