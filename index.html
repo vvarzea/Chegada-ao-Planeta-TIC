@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#0f172a"><link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#ff9a3d"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
 <title>VanBerto's – Missão Planeta TIC</title>
 <style>
 *{box-sizing:border-box}
@@ -107,14 +109,118 @@ body{padding-bottom:20px}
 .dpb{font-size:4rem}.dp h1{font-size:2.4rem;margin:.2em 0;color:#1d4ed8}.sig{margin-top:20px;color:#4b5563}
 @media(max-width:600px){.cols{grid-template-columns:1fr 1fr}.tag{min-width:0;padding:8px;font-size:.92rem}.dp{padding:14px}}
 @media print{body>*:not(#dipl){display:none!important}body{background:#fff!important;display:block}#dipl{position:static;display:block}.np{display:none}}
+
+/* ===== Tema lúdico (igual à Hora do Código): creme com pontinhos, contornos azul-escuros e sombras duras ===== */
+:root{--tx:#1e1b4b;--bd:#1e1b4b;--sh:#1e1b4b;--card:#fff;--card2:#fafbff;--card3:#fffdf5;--ink:#1e1b4b;--sun:#ffd23f;--coral:#ff6b6b;--mint:#2ee6a6;--sky:#4cc9f0;--grape:#7c3aed;--cream:#fff8e7;--acc:#4cc9f0}
+body.s0{--acc:#4cc9f0}body.s1{--acc:#2ee6a6}body.s2{--acc:#a5b4fc}body.s3{--acc:#d8b4fe}
+body.s4{--acc:#7dd3fc}body.s5{--acc:#ffb3c1}body.s6{--acc:#ff9a8b}body.s7{--acc:#ffd23f}body.sf{--acc:#2ee6a6}
+body,button,input{font-family:'Nunito','Nunito Sans',system-ui,-apple-system,sans-serif}
+h1,#title,.pt,#prog,.btn,#zone,.final b{font-family:'Fredoka','Nunito',sans-serif}
+body[class]{background:radial-gradient(rgba(255,150,60,.30) 1.4px,transparent 1.6px) 0 0/22px 22px,var(--cream);color:var(--tx);-webkit-tap-highlight-color:transparent}
+.star,.meteor{display:none}
+body{flex-direction:column;align-items:center;padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+#wrap{width:100%;max-width:980px;margin:16px auto 0;padding:0 16px}
+#hdr{display:flex;align-items:center;justify-content:center;gap:16px;background:var(--card);border:3px solid var(--bd);border-radius:20px;box-shadow:0 5px 0 var(--sh);padding:12px 20px;margin-top:env(safe-area-inset-top)}
+#htxt{text-align:center}
+#htxt h1{margin:0;font-size:clamp(1.8rem,5.5vw,3rem);line-height:1.05;font-weight:700;color:var(--tx);letter-spacing:.2px;text-shadow:3px 3px 0 var(--sun)}
+#htxt p{margin:4px 0 0;font:700 1.05rem 'Fredoka','Nunito',sans-serif;color:#475569;letter-spacing:.3px}
+#game{max-width:none;width:100%;margin:16px 0 0;padding:16px 18px 14px;background:var(--card2);border:3px solid var(--bd);border-radius:24px;box-shadow:0 6px 0 var(--sh)}
+#bar{height:18px;background:var(--card);border:2.5px solid var(--bd);border-radius:99px}
+#fill{background:repeating-linear-gradient(135deg,var(--mint) 0 12px,#6ff2c4 12px 24px);background-size:34px 34px;animation:stripes 1s linear infinite;transition:width .5s cubic-bezier(.3,1.4,.5,1)}
+@keyframes stripes{to{background-position:34px 0}}
+#top{margin:12px 0}
+#prog{font-weight:700;font-size:1rem;color:var(--tx);background:var(--sun);border:2.5px solid var(--bd);border-radius:99px;padding:3px 14px;box-shadow:0 3px 0 var(--sh)}
+.box,#snd,#vz{background:var(--card);color:var(--tx);border:2.5px solid var(--bd);border-radius:99px;box-shadow:0 3px 0 var(--sh);font-weight:800;font-size:.9rem}
+#snd,#vz{cursor:pointer;transition:transform .08s,box-shadow .08s,background .12s}
+#snd:hover,#vz:hover{background:var(--sun)}
+#snd:active,#vz:active{transform:translateY(3px);box-shadow:0 0 0 var(--ink)}
+#snd:focus-visible,#vz:focus-visible,.btn:focus-visible,#pn:focus-visible{outline:3px solid var(--grape);outline-offset:2px}
+#hero{margin:10px 0}
+#zone{display:inline-block;background:var(--acc);color:var(--tx);border:2.5px solid var(--bd);border-radius:99px;padding:2px 14px;font-size:.9rem;font-weight:700;letter-spacing:.2px;text-transform:none;transition:background .4s}
+#title{font-size:clamp(1.5rem,4.2vw,2.1rem);font-weight:700;margin:8px 0 12px;color:var(--tx)}
+#fala{position:relative;background:var(--card);border:3px solid var(--bd);border-radius:18px;box-shadow:0 4px 0 var(--sh);padding:10px 16px;font-size:1.05rem;font-weight:700;color:var(--tx)}
+#fala::before{content:"";position:absolute;top:-13px;left:50%;margin-left:-10px;border:10px solid transparent;border-bottom:12px solid var(--bd);border-top:0}
+#mission{background:var(--card3);border:2.5px dashed rgba(30,27,75,.4);border-radius:22px;padding:14px;margin-top:18px}
+.panel{background:var(--card);border:3px solid var(--bd);border-radius:18px;box-shadow:0 4px 0 var(--sh);padding:12px}
+.pt{font-weight:700;font-size:1.05rem;color:var(--tx)}
+.tag{min-height:54px;font-weight:800;font-size:1.02rem;color:var(--tx);border:3px solid var(--bd);border-radius:16px;box-shadow:0 4px 0 var(--sh);transition:transform .1s,box-shadow .1s,background .12s}
+.tag:not(.disabled):not(.ghost):hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--sh);background:#fff3bf}
+.tag:not(.ghost):active{transform:translateY(4px);box-shadow:0 0 0 var(--ink)}
+.selected{background:var(--sun)!important;border-color:var(--bd)}
+.correct{background:var(--mint)!important;border-color:var(--bd);animation:popc .35s}
+.correct.disabled{opacity:1}
+.wrong{background:#ffb4b4!important;border-color:var(--bd)}
+.tgt{border-style:dashed}
+.tgt.over{transform:scale(1.05);background:var(--sun);border-color:var(--bd)}
+.chip{background:var(--mint);color:#1e1b4b;border:2px solid var(--bd);font-weight:800;font-size:.85rem}
+.ghost{border-color:var(--bd);box-shadow:0 10px 0 rgba(30,27,75,.35)}
+#fb{font-size:1.1rem;min-height:30px}
+#fb.ok{color:#15803d}#fb.err{color:#b91c1c}
+.btn{background:var(--sun);color:var(--tx);border:3px solid var(--bd);border-radius:16px;box-shadow:0 5px 0 var(--sh);padding:11px 24px;font-size:1.1rem;font-weight:700;transition:transform .08s,box-shadow .08s,background .12s}
+.btn:hover{background:#ffe066}
+.btn:active{transform:translateY(5px);box-shadow:0 0 0 var(--ink)}
+#next{animation:nudge 1.4s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(-4px)}}
+#pn{color:var(--tx);border:3px solid var(--bd);border-radius:16px;font-weight:800;box-shadow:0 4px 0 var(--sh);font-size:1.15rem}
+.final .big{font-size:4.5rem;animation:float 2s ease-in-out infinite}
+.rev{background:#fff3bf;border:2px solid var(--bd)}
+.lvh,#credit{color:#475569;font-weight:700}
+#fname{background:var(--ink);padding:2px 10px;border-radius:99px;color:var(--sun)}
+.pop{position:fixed;z-index:10001;pointer-events:none;font:700 1.9rem 'Fredoka',sans-serif;color:var(--sun);-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:0 3px 0 var(--sh);animation:pop .9s ease-out forwards}
+@keyframes pop{from{opacity:1;transform:translate(-50%,0) scale(.6)}30%{transform:translate(-50%,-20px) scale(1.2)}to{opacity:0;transform:translate(-50%,-70px) scale(1)}}
+@media(max-width:600px){#wrap{padding:0 8px;margin-top:8px}#hdr{gap:10px;padding:10px 12px}#htxt p{font-size:.85rem}#game{padding:12px}#fala{font-size:1rem}.tag{font-size:.95rem}}
+@media(prefers-reduced-motion:reduce){#fill,#next,.final .big{animation:none}.pop{animation-duration:.01s}}
+
+/* ===== Trilho de missões (substitui a barra) ===== */
+#trail{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:4px 2px 10px}
+.nd{position:relative;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--card);border:2.5px solid var(--bd);box-shadow:0 3px 0 var(--sh);font-size:1rem;opacity:.75;transition:background .3s,transform .3s}
+.nd:not(:last-child)::after{content:"";position:absolute;left:100%;top:50%;width:10px;border-top:3px dashed var(--bd);transform:translateY(-50%)}
+.nd.dn{background:var(--mint);opacity:1;color:#1e1b4b;font-weight:900}
+.nd.now{background:var(--sun);opacity:1;transform:scale(1.25);animation:nudge 1.4s ease-in-out infinite;z-index:1}
+/* ===== Menu "Mais", pausa ===== */
+#mw{display:inline-block;position:relative;margin-left:6px}
+#mb,#pz{border:2.5px solid var(--bd);background:var(--card);color:var(--tx);border-radius:99px;padding:6px 12px;font-weight:800;font-size:.9rem;cursor:pointer;box-shadow:0 3px 0 var(--sh);margin-left:6px;transition:transform .08s,box-shadow .08s,background .12s}
+#mw #mb{margin-left:0}
+#mb:hover,#pz:hover{background:var(--sun);color:#1e1b4b}
+#mb:active,#pz:active{transform:translateY(3px);box-shadow:0 0 0 var(--sh)}
+#mb:focus-visible,#pz:focus-visible,#dk:focus-visible,#fs:focus-visible{outline:3px solid var(--grape);outline-offset:2px}
+#mm{position:absolute;right:0;top:calc(100% + 8px);z-index:60;display:flex;flex-direction:column;gap:8px;background:var(--card);border:3px solid var(--bd);border-radius:18px;box-shadow:0 5px 0 var(--sh);padding:10px;min-width:190px}
+#mm[hidden]{display:none}
+#mm button{margin:0;width:100%;text-align:left;border:2.5px solid var(--bd);background:var(--card);color:var(--tx);border-radius:99px;padding:7px 12px;font-weight:800;font-size:.9rem;cursor:pointer;box-shadow:0 3px 0 var(--sh)}
+#mm button:hover{background:var(--sun);color:#1e1b4b}
+#pauseov{position:fixed;inset:0;z-index:30000;background:rgba(30,27,75,.82);display:grid;place-items:center;padding:16px}
+.pbox{background:var(--card);color:var(--tx);border:4px solid var(--bd);border-radius:28px;box-shadow:0 8px 0 var(--sh);padding:28px 32px;text-align:center;max-width:420px}
+.pbox h2{font-family:'Fredoka','Nunito',sans-serif;font-size:2rem;margin:.2em 0}
+.pbig{font-size:4rem}
+/* ===== Estrelas por missão ===== */
+.stl{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:6px;margin:10px auto;max-width:700px;text-align:left}
+.sti{display:flex;justify-content:space-between;gap:8px;background:var(--card);border:2.5px solid var(--bd);border-radius:12px;padding:5px 10px;font-weight:800;font-size:.9rem}
+/* ===== Telemóvel: o robô não tapa o jogo ===== */
+@media(max-width:700px){#fbub{display:none}#fvb{width:56px}#fname{font-size:.7rem}body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}.nd{width:26px;height:26px;font-size:.75rem;gap:4px}.nd:not(:last-child)::after{display:none}#trail{gap:6px}#mm{right:auto;left:0}}
+/* ===== Modo escuro ===== */
+html.dark{--tx:#e2e8f0;--bd:#475569;--sh:#020617;--card:#1e293b;--card2:#111c33;--card3:#0f172a}
+html.dark body[class]{background:radial-gradient(rgba(125,140,255,.16) 1.4px,transparent 1.6px) 0 0/22px 22px,#0b1220}
+html.dark #htxt p,html.dark .lvh,html.dark #credit{color:#94a3b8}
+html.dark #htxt h1{text-shadow:3px 3px 0 #7c3aed}
+html.dark #prog,html.dark #zone,html.dark .selected,html.dark .correct,html.dark .wrong,html.dark .btn,html.dark .rev,html.dark .tgt.over{color:#1e1b4b}
+html.dark .tag{background:var(--card);color:var(--tx)}
+html.dark .tag:not(.disabled):not(.ghost):hover{background:#334155}
+html.dark .tag.selected,html.dark .tag.correct,html.dark .tag.wrong,html.dark .tgt.over{color:#1e1b4b}
+html.dark .chip{color:#1e1b4b}
+html.dark #pn{background:var(--card);color:var(--tx)}
+html.dark #fb.ok{color:#4ade80}html.dark #fb.err{color:#fca5a5}
+html.dark #fala::before{border-bottom-color:var(--bd)}
+html.dark .tag.correct:hover{background:var(--mint)}
 </style>
 </head>
 <body class="s0">
+<div id="wrap">
+<header id="hdr"><div id="htxt"><h1>Missão Planeta TIC</h1><p>VanBerto's · Segurança Informática</p></div></header>
 <div id="game">
-  <div id="bar"><div id="fill"></div></div>
+  <div id="trail" aria-hidden="true"></div>
   <div id="top">
     <div id="prog"></div>
-    <div><span class="box">⭐ <b id="p">0</b></span><span class="box" id="st" style="display:none">🔥 <b id="sk">0</b></span><span class="box" id="tm" style="display:none"></span><span class="box">✔ <b id="c">0</b></span><span class="box">✘ <b id="w">0</b></span><button id="snd" type="button">🔊 Som</button><button id="vz" type="button">🤐 Voz desligada</button></div>
+    <div><span class="box">⭐ <b id="p">0</b></span><span class="box" id="st" style="display:none">🔥 <b id="sk">0</b></span><span class="box" id="tm" style="display:none"></span><span class="box">✔ <b id="c">0</b></span><span class="box">✘ <b id="w">0</b></span><button id="pz" type="button" title="Pausar o jogo (P)">⏸️ Pausa</button><span id="mw"><button id="mb" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="mm">⚙️ Mais</button><div id="mm" hidden><button id="snd" type="button">🔊 Som</button><button id="vz" type="button">🤐 Voz desligada</button><button id="dk" type="button">🌙 Modo escuro</button><button id="fs" type="button">⛶ Ecrã inteiro</button></div></span></div>
   </div>
 
   <div id="hero">
@@ -123,23 +229,16 @@ body{padding-bottom:20px}
 
   <div id="mission"></div>
   <div id="fb"></div>
-  <div id="ctrl"><button id="next" class="btn" style="display:none"></button><button id="dip" class="btn" style="display:none">🎓 Diploma</button><button id="again" class="btn" style="display:none">↺ Jogar de novo</button></div>
+  <div id="ctrl"><button id="next" class="btn" style="display:none"></button><button id="dip" class="btn" style="display:none">🎓 Diploma</button><button id="train" class="btn" style="display:none">🎯 Treinar o que errei</button><button id="again" class="btn" style="display:none">↺ Jogar de novo</button></div>
   <div id="fw"><div id="fbub" role="status" aria-live="polite"></div><canvas id="fvb" role="button" tabindex="0" aria-label="VanBerto's – clica para uma dica"></canvas><div id="fname">👤 Herói TIC</div></div>
   <div id="credit">© Prof.ª Vanda Várzea</div>
+</div>
 </div>
 
 <script>
 const $=id=>document.getElementById(id);
 const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
 const shuf=a=>[...a].sort(()=>Math.random()-.5);
-
-/* ===== Fundo: estrelas e meteoros ===== */
-setInterval(()=>{const s=el('div','star'),t=Math.random()*3+1,d=Math.random()*4+4;
-  s.style.cssText=`width:${t}px;height:${t}px;left:${Math.random()*innerWidth}px;animation-duration:${d}s,${Math.random()*1.5+1.5}s`;
-  document.body.appendChild(s);setTimeout(()=>s.remove(),d*1000)},200);
-(function met(){const m=el('div','meteor'),d=Math.random()*3+4;
-  m.style.left=innerWidth*(.6+Math.random()*.4)+'px';m.style.animationDuration=d+'s';
-  document.body.appendChild(m);setTimeout(()=>m.remove(),d*1000);setTimeout(met,4000+Math.random()*6000)})();
 
 /* ===== Som e voz ===== */
 let ac=null,sound=true,voice=false;
@@ -322,14 +421,18 @@ $('fvb').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();hint(
 
 /* ===== Pontuação e feedback ===== */
 let ok=0,bad=0,cur=0,pts=0,streak=0,name='',lvl='n',tmr=null,curM=null,MD=[];const errs=[];
+let SEQ=[],train=false,paused=false;const starsOf={};
+const PL=['🗂️','🔑','🔌','💻','📶','💾','☁️','🔐','💬','📥','🧷','📧','🤖','🛡️'];
+function trail(fim){const t=$('trail');t.textContent='';SEQ.forEach((mi,k)=>{const d=fim||k<cur;t.append(el('span','nd'+(d?' dn':k===cur?' now':''),d?'✔':PL[mi%PL.length]))})}
 const PR=['Muito bem!','Boa!','Excelente!','Isso mesmo!','Estás a arrasar!'];
 const upd=()=>{$('c').textContent=ok;$('w').textContent=bad;$('p').textContent=pts;$('sk').textContent=streak;$('st').style.display=streak>=3?'inline-block':'none'};
 const fb=(t,c)=>{$('fb').textContent=t||'';$('fb').className=c||''};
 function right(x){streak++;const g=(10+(streak>=3?5:0))*(lvl==='d'?2:1);pts+=g;ok++;upd();const p=PR[Math.floor(Math.random()*PR.length)];
-  fb(`${p} ⭐ +${g}`+(streak>=3?` 🔥 Sequência de ${streak}!`:'')+(x?' '+x:''),'ok');beep(SND.ok);say(p);bub(p+(name?' '+name:''));robot(streak>=3?'dance':'glow')}
-function wrong(d){errs[cur]=(errs[cur]||0)+1;streak=0;bad++;upd();const dd=lvl==='f'&&d?d:'Pensa lá outra vez…';fb(dd,'err');beep(SND.err);say('Pensa lá outra vez.');bub(dd);robot('shake')}
+  fb(`${p} ⭐ +${g}`+(streak>=3?` 🔥 Sequência de ${streak}!`:'')+(x?' '+x:''),'ok');beep(SND.ok);say(p);bub(p+(name?' '+name:''));robot(streak>=3?'dance':'glow');pop('+'+g)}
+function pop(t){const r=$('fb').getBoundingClientRect(),e=el('div','pop',t);e.style.left=(r.left+r.width/2)+'px';e.style.top=r.top+'px';document.body.append(e);setTimeout(()=>e.remove(),900)}
+function wrong(d){const mi=SEQ[cur];errs[mi]=(errs[mi]||0)+1;streak=0;bad++;upd();const dd=lvl==='f'&&d?d:'Pensa lá outra vez…';fb(dd,'err');beep(SND.err);say('Pensa lá outra vez.');bub(dd);robot('shake')}
 function timer(){clearInterval(tmr);const t=$('tm');if(lvl!=='d'){t.style.display='none';return}let n=60;t.style.display='inline-block';t.textContent='⏱ '+n;
-  tmr=setInterval(()=>{n--;t.textContent='⏱ '+n;if(n<=0){clearInterval(tmr);wrong('Tempo esgotado!');fb('Tempo esgotado! ⏱','err');setTimeout(()=>cur+1<M.length?start(cur+1):final(),900)}},1000)}
+  tmr=setInterval(()=>{if(paused)return;n--;t.textContent='⏱ '+n;if(n<=0){clearInterval(tmr);wrong('Tempo esgotado!');fb('Tempo esgotado! ⏱','err');setTimeout(()=>cur+1<SEQ.length?start(cur+1):final(),900)}},1000)}
 const flash=(b,c)=>{b.classList.add(c);setTimeout(()=>b.classList.remove(c),600)};
 
 /* ===== Missões (dados) ===== */
@@ -427,40 +530,48 @@ const ENG={
 };
 
 function start(i){
-  cur=i;const base=M[i];let m=Object.assign({},base);
+  cur=i;const mi=SEQ[i],base=M[mi];let m=Object.assign({},base);
   if(base.v)Object.assign(m,base.v[Math.floor(Math.random()*base.v.length)]);
   if(base.k==='judge')m.s=shuf(base.pool).slice(0,6);
   if(base.k==='pick'){const sf=base.pool.filter(x=>x[1]),dg=base.pool.filter(x=>!x[1]);m.p=[...shuf(sf).slice(0,4),...shuf(dg).slice(0,4)]}
   curM=m;
-  document.body.className=i<8?'s'+i:'s'+(i%8);
-  $('prog').textContent=`Missão ${i+1} de ${M.length}`;
-  $('fill').style.width=(i/M.length*100)+'%';
-  $('zone').textContent=m.z;$('title').textContent=`Missão ${i+1} – ${m.t}`;$('fala').textContent=m.f;
+  document.body.className='s'+(mi%8);
+  $('prog').textContent=(train?'Treino ':'Missão ')+`${i+1} de ${SEQ.length}`;trail();
+  $('zone').textContent=m.z;$('title').textContent=`Missão ${mi+1} – ${m.t}`;$('fala').textContent=m.f;
   $('mission').replaceWith(Object.assign(el('div'),{id:'mission'}));
-  fb('');next.style.display='none';$('again').style.display=$('dip').style.display='none';
+  fb('');next.style.display='none';$('again').style.display=$('dip').style.display=$('train').style.display='none';
   ENG[m.k](m,$('mission'),()=>{clearInterval(tmr);$('tm').style.display='none';
-    next.textContent=i===M.length-1?'Ver resultado final →':'Próxima missão →';next.style.display='inline-block'});
+    next.textContent=i===SEQ.length-1?'Ver resultado final →':'Próxima missão →';next.style.display='inline-block';
+    const er=errs[mi]||0,n=er===0?3:er<=2?2:1;starsOf[mi]=n;$('fb').textContent+=' · '+'🌟'.repeat(n)+'☆'.repeat(3-n)});
   timer();say(m.f)}
 
-next.onclick=()=>{clearInterval(tmr);beep(SND.next);cur+1<M.length?start(cur+1):final()};
+next.onclick=()=>{clearInterval(tmr);beep(SND.next);cur+1<SEQ.length?start(cur+1):final()};
 $('dip').onclick=()=>{const d=el('div');d.id='dipl';
   d.innerHTML=`<div class="dp"><div class="dpb">${MD[0]}</div><h2>Diploma</h2><p>Certifica-se que</p><h1></h1><p>concluiu a <b>Missão Planeta TIC</b> e aprendeu a usar o computador e a Internet em segurança.</p><p>⭐ ${pts} pontos · ${MD[1]} · ${new Date().toLocaleDateString('pt-PT')}</p><p class="sig">© Prof.ª Vanda Várzea</p><div class="np"><button class="btn" id="pr">🖨️ Imprimir / Guardar PDF</button><button class="btn" id="cl">Fechar</button></div></div>`;
   d.querySelector('h1').textContent=name;document.body.append(d);$('pr').onclick=()=>print();$('cl').onclick=()=>d.remove()};
-$('again').onclick=()=>{ok=bad=pts=streak=0;errs.length=0;upd();start(0)};
+$('again').onclick=()=>{train=false;SEQ=M.map((_,k)=>k);Object.keys(starsOf).forEach(k=>delete starsOf[k]);ok=bad=pts=streak=0;errs.length=0;upd();start(0)};
+$('train').onclick=()=>{const todo=M.map((_,k)=>k).filter(k=>errs[k]);if(!todo.length)return;train=true;SEQ=todo;todo.forEach(k=>errs[k]=0);ok=bad=pts=streak=0;upd();start(0)};
 
 /* ===== Final ===== */
 function final(){
-  document.body.className='sf';next.style.display='none';
-  $('fill').style.width='100%';$('prog').textContent='Missões concluídas';
+  document.body.className='sf';next.style.display='none';clearInterval(tmr);$('tm').style.display='none';trail(true);
+  const left=M.map((_,k)=>k).filter(k=>errs[k]);
+  const sl=k=>'🌟'.repeat(starsOf[k]||0)+'☆'.repeat(3-(starsOf[k]||0));
+  const rows=SEQ.map(k=>`<div class="sti"><span>${PL[k]} ${M[k].t}</span><span>${sl(k)}</span></div>`).join('');
+  const tot=SEQ.reduce((a,k)=>a+(starsOf[k]||0),0);
   let e='🥉',t='Medalha de Bronze',x='Bom esforço! Estás a aprender e isso é fantástico.';
-  if(bad<=4){e='🥇';t='Medalha de Ouro';x='Excelente trabalho! Salvaste o Planeta TIC.'}
+  if(train){e='🎯';t='Treino concluído';x=left.length?'Quase lá! Ainda podes treinar o que falta.':'Já sabes tudo! Não erraste nenhuma.'}
+  else if(bad<=4){e='🥇';t='Medalha de Ouro';x='Excelente trabalho! Salvaste o Planeta TIC.'}
   else if(bad<=10){e='🥈';t='Medalha de Prata';x='Muito bem! Faltou só um bocadinho para o ouro.'}
-  $('zone').textContent='Missão cumprida';$('title').textContent='⭐ Parabéns, '+name+'! ⭐';
+  $('prog').textContent=train?'Treino concluído':'Missões concluídas';
+  $('zone').textContent=train?'Treino':'Missão cumprida';$('title').textContent='⭐ Parabéns, '+name+'! ⭐';
   $('fala').textContent='Obrigado por me ajudares a usar o computador e a Internet em segurança!';
-  MD=[e,t];let best=0,rec=false;try{best=+localStorage.getItem('vbtic')||0;if(pts>best){localStorage.setItem('vbtic',pts);rec=best>0;best=pts}}catch(e){}
-  const rv=M.filter((_,k)=>errs[k]).map(m=>m.t);
-  const m=$('mission');m.innerHTML=`<div class="final"><div class="big">${e}</div><b>${t}</b><p>⭐ <b>${pts}</b> pontos${rec?' – novo recorde! 🏆':best?' (melhor: '+best+')':''}<br>✔ Certo: <b>${ok}</b> &nbsp; ✘ Errado: <b>${bad}</b></p><p>${x}</p>${rv.length?'<div class="rev"><b>Para rever:</b> '+rv.join(', ')+'</div>':'<p>Sem nenhum erro nas missões! 👏</p>'}<p>Queres tentar outra vez e melhorar o resultado?</p></div>`;
-  fb('Fantástico! Missão TIC concluída! 🚀','ok');$('again').style.display=$('dip').style.display='inline-block';
+  let best=0,rec=false;
+  if(!train){MD=[e,t];try{best=+localStorage.getItem('vbtic')||0;if(pts>best){localStorage.setItem('vbtic',pts);rec=best>0;best=pts}}catch(er){}}
+  const m=$('mission');
+  m.innerHTML=`<div class="final"><div class="big">${e}</div><b>${t}</b><p>⭐ <b>${pts}</b> pontos${!train&&rec?' – novo recorde! 🏆':!train&&best?' (melhor: '+best+')':''}<br>✔ Certo: <b>${ok}</b> &nbsp; ✘ Errado: <b>${bad}</b></p><p>🌟 <b>${tot}</b> de ${SEQ.length*3} estrelas</p><div class="stl">${rows}</div><p>${x}</p>${left.length?'<div class="rev"><b>Para rever:</b> '+left.map(k=>M[k].t).join(', ')+'</div>':'<p>Sem nenhum erro nas missões! 👏</p>'}</div>`;
+  fb(train?'Treino concluído! 🎯':'Fantástico! Missão TIC concluída! 🚀','ok');
+  $('again').style.display='inline-block';$('dip').style.display=train?'none':'inline-block';$('train').style.display=left.length?'inline-block':'none';
   beep(SND.fim);say('Fantástico! Missão concluída!');robot('dance');
   const cs=['#f97316','#22c55e','#3b82f6','#ec4899','#eab308'];
   for(let i=0;i<80;i++){const c=el('div','confetti'),d=2+Math.random()*1.8;
@@ -468,8 +579,8 @@ function final(){
     document.body.append(c);setTimeout(()=>c.remove(),d*1000)}}
 
 function intro(){
-  document.body.className='s0';cur=-1;$('prog').textContent='Preparação';$('fill').style.width='0';
-  $('zone').textContent='Planeta TIC';$('title').textContent="VanBerto's – Missão Planeta TIC";
+  document.body.className='s0';cur=-1;train=false;SEQ=M.map((_,k)=>k);trail();$('prog').textContent='Preparação';
+  $('zone').textContent='Planeta TIC';$('title').textContent="Prepara-te para a aventura!";
   $('fala').textContent="Olá! Sou o VanBerto's. Como te chamas?";
   $('mission').replaceWith(Object.assign(el('div'),{id:'mission'}));
   const p=el('div','panel final'),i=el('input');i.id='pn';i.maxLength=20;i.placeholder='O teu nome';i.value=name;i.setAttribute('aria-label','O teu nome');
@@ -477,7 +588,25 @@ function intro(){
   b.onclick=go;i.onkeydown=e=>{if(e.key==='Enter')go()};
   const lv=el('div','row');[['f','😊 Fácil'],['n','🙂 Normal'],['d','⏱ Desafio']].forEach(([k,l])=>{const q=el('button','tag'+(lvl===k?' selected':''),l);q.onclick=()=>{lvl=k;lv.querySelectorAll('.tag').forEach(x=>x.classList.remove('selected'));q.classList.add('selected')};lv.append(q)});
   p.append(el('p','','Ajuda-me a salvar o Planeta TIC em '+M.length+' missões de segurança informática!'),i,lv,el('p','lvh','Fácil mostra dicas. Desafio tem 60 s por missão e pontos a dobrar.'),b);
-  $('mission').append(p);fb('');next.style.display='none';$('again').style.display=$('dip').style.display='none';bub("Olá! Sou o VanBerto's!");play([['wink',-1,true,900]])}
+  $('mission').append(p);fb('');next.style.display='none';$('again').style.display=$('dip').style.display=$('train').style.display='none';bub("Olá! Sou o VanBerto's!");play([['wink',-1,true,900]])}
+
+/* ===== Pausa (tecla P), menu Mais, modo escuro e ecrã inteiro ===== */
+function pause(on){if(on===paused)return;paused=on;let o=$('pauseov');
+  if(on){o=el('div');o.id='pauseov';o.setAttribute('role','dialog');o.setAttribute('aria-label','Jogo em pausa');
+    const bx=el('div','pbox');bx.append(el('div','pbig','⏸️'),el('h2','','Jogo em pausa'),el('p','','Ouve a professora. Quando ela disser, carrega em continuar.'));
+    const b=el('button','btn','▶ Continuar');b.onclick=()=>pause(false);bx.append(b);o.append(bx);document.body.append(o);
+    if(window.speechSynthesis)speechSynthesis.cancel();b.focus()}
+  else if(o)o.remove()}
+$('pz').onclick=()=>pause(!paused);
+addEventListener('keydown',e=>{if(/INPUT|TEXTAREA/.test(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(e.key==='p'||e.key==='P')pause(!paused);else if(e.key==='Escape'){if(paused)pause(false);$('mm').hidden=true;$('mb').setAttribute('aria-expanded','false')}});
+$('mb').onclick=e=>{e.stopPropagation();const m=$('mm');m.hidden=!m.hidden;$('mb').setAttribute('aria-expanded',String(!m.hidden))};
+document.addEventListener('click',e=>{const m=$('mm');if(!m.hidden&&!e.target.closest('#mw')){m.hidden=true;$('mb').setAttribute('aria-expanded','false')}});
+function dark(on){document.documentElement.classList.toggle('dark',on);$('dk').textContent=on?'☀️ Modo claro':'🌙 Modo escuro';try{localStorage.setItem('vbdark',on?'1':'0')}catch(e){}}
+$('dk').onclick=()=>dark(!document.documentElement.classList.contains('dark'));
+try{if(localStorage.getItem('vbdark')==='1')dark(true)}catch(e){}
+if(!document.documentElement.requestFullscreen)$('fs').style.display='none';
+$('fs').onclick=()=>{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})};
 upd();intro();
 if('serviceWorker' in navigator&&location.protocol.indexOf('http')===0)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
