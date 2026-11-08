@@ -179,16 +179,16 @@ body{flex-direction:column;align-items:center;padding-bottom:calc(20px + env(saf
 .nd.now{background:var(--sun);opacity:1;transform:scale(1.25);animation:nudge 1.4s ease-in-out infinite;z-index:1}
 /* ===== Menu "Mais", pausa ===== */
 #mw{display:inline-block;position:relative;margin-left:6px}
-#mb,#pz{border:2.5px solid var(--bd);background:var(--card);color:var(--tx);border-radius:99px;padding:6px 12px;font-weight:800;font-size:.9rem;cursor:pointer;box-shadow:0 3px 0 var(--sh);margin-left:6px;transition:transform .08s,box-shadow .08s,background .12s}
+#mb,#pz,#hm{border:2.5px solid var(--bd);background:var(--card);color:var(--tx);border-radius:99px;padding:6px 12px;font-weight:800;font-size:.9rem;cursor:pointer;box-shadow:0 3px 0 var(--sh);margin-left:6px;transition:transform .08s,box-shadow .08s,background .12s}
 #mw #mb{margin-left:0}
-#mb:hover,#pz:hover{background:var(--sun);color:#1e1b4b}
-#mb:active,#pz:active{transform:translateY(3px);box-shadow:0 0 0 var(--sh)}
-#mb:focus-visible,#pz:focus-visible,#dk:focus-visible,#fs:focus-visible{outline:3px solid var(--grape);outline-offset:2px}
+#mb:hover,#pz:hover,#hm:hover{background:var(--sun);color:#1e1b4b}
+#mb:active,#pz:active,#hm:active{transform:translateY(3px);box-shadow:0 0 0 var(--sh)}
+#mb:focus-visible,#pz:focus-visible,#hm:focus-visible,#dk:focus-visible,#fs:focus-visible{outline:3px solid var(--grape);outline-offset:2px}
 #mm{position:absolute;right:0;top:calc(100% + 8px);z-index:60;display:flex;flex-direction:column;gap:8px;background:var(--card);border:3px solid var(--bd);border-radius:18px;box-shadow:0 5px 0 var(--sh);padding:10px;min-width:190px}
 #mm[hidden]{display:none}
 #mm button{margin:0;width:100%;text-align:left;border:2.5px solid var(--bd);background:var(--card);color:var(--tx);border-radius:99px;padding:7px 12px;font-weight:800;font-size:.9rem;cursor:pointer;box-shadow:0 3px 0 var(--sh)}
 #mm button:hover{background:var(--sun);color:#1e1b4b}
-#pauseov{position:fixed;inset:0;z-index:30000;background:rgba(30,27,75,.82);display:grid;place-items:center;padding:16px}
+#pauseov,#homeov{position:fixed;inset:0;z-index:30000;background:rgba(30,27,75,.82);display:grid;place-items:center;padding:16px}
 .pbox{background:var(--card);color:var(--tx);border:4px solid var(--bd);border-radius:28px;box-shadow:0 8px 0 var(--sh);padding:28px 32px;text-align:center;max-width:420px}
 .pbox h2{font-family:'Fredoka','Nunito',sans-serif;font-size:2rem;margin:.2em 0}
 .pbig{font-size:4rem}
@@ -220,7 +220,7 @@ html.dark .tag.correct:hover{background:var(--mint)}
   <div id="trail" aria-hidden="true"></div>
   <div id="top">
     <div id="prog"></div>
-    <div><span class="box">⭐ <b id="p">0</b></span><span class="box" id="st" style="display:none">🔥 <b id="sk">0</b></span><span class="box" id="tm" style="display:none"></span><span class="box">✔ <b id="c">0</b></span><span class="box">✘ <b id="w">0</b></span><button id="pz" type="button" title="Pausar o jogo (P)">⏸️ Pausa</button><span id="mw"><button id="mb" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="mm">⚙️ Mais</button><div id="mm" hidden><button id="snd" type="button">🔊 Som</button><button id="vz" type="button">🤐 Voz desligada</button><button id="dk" type="button">🌙 Modo escuro</button><button id="fs" type="button">⛶ Ecrã inteiro</button></div></span></div>
+    <div><span class="box">⭐ <b id="p">0</b></span><span class="box" id="st" style="display:none">🔥 <b id="sk">0</b></span><span class="box" id="tm" style="display:none"></span><span class="box">✔ <b id="c">0</b></span><span class="box">✘ <b id="w">0</b></span><button id="hm" type="button" title="Voltar ao início e mudar de nível">🏠 Início</button><button id="pz" type="button" title="Pausar o jogo (P)">⏸️ Pausa</button><span id="mw"><button id="mb" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="mm">⚙️ Mais</button><div id="mm" hidden><button id="snd" type="button">🔊 Som</button><button id="vz" type="button">🤐 Voz desligada</button><button id="dk" type="button">🌙 Modo escuro</button><button id="fs" type="button">⛶ Ecrã inteiro</button></div></span></div>
   </div>
 
   <div id="hero">
@@ -587,7 +587,7 @@ function intro(){
   const b=el('button','btn','Começar a missão'),go=()=>{name=i.value.trim()||'Herói TIC';$('fname').textContent='👤 '+name;start(0)};
   b.onclick=go;i.onkeydown=e=>{if(e.key==='Enter')go()};
   const lv=el('div','row');[['f','😊 Fácil'],['n','🙂 Normal'],['d','⏱ Desafio']].forEach(([k,l])=>{const q=el('button','tag'+(lvl===k?' selected':''),l);q.onclick=()=>{lvl=k;lv.querySelectorAll('.tag').forEach(x=>x.classList.remove('selected'));q.classList.add('selected')};lv.append(q)});
-  p.append(el('p','','Ajuda-me a salvar o Planeta TIC em '+M.length+' missões de segurança informática!'),i,lv,el('p','lvh','Fácil mostra dicas. Desafio tem 60 s por missão e pontos a dobrar.'),b);
+  p.append(el('p','','Ajuda-me a salvar o Planeta TIC em '+M.length+' missões de segurança informática!'),i,lv,el('p','lvh','Fácil mostra uma dica quando erras. Normal não mostra dicas. Desafio tem 60 s por missão e pontos a dobrar.'),b);
   $('mission').append(p);fb('');next.style.display='none';$('again').style.display=$('dip').style.display=$('train').style.display='none';bub("Olá! Sou o VanBerto's!");play([['wink',-1,true,900]])}
 
 /* ===== Pausa (tecla P), menu Mais, modo escuro e ecrã inteiro ===== */
@@ -598,8 +598,14 @@ function pause(on){if(on===paused)return;paused=on;let o=$('pauseov');
     if(window.speechSynthesis)speechSynthesis.cancel();b.focus()}
   else if(o)o.remove()}
 $('pz').onclick=()=>pause(!paused);
+function goHome(){pause(false);clearInterval(tmr);$('tm').style.display='none';ok=bad=pts=streak=0;errs.length=0;Object.keys(starsOf).forEach(k=>delete starsOf[k]);upd();intro()}
+$('hm').onclick=()=>{if(cur<0||document.body.className==='sf'){goHome();return}
+  if($('homeov'))return;const o=el('div');o.id='homeov';o.setAttribute('role','dialog');o.setAttribute('aria-label','Voltar ao início');
+  const bx=el('div','pbox');bx.append(el('div','pbig','🏠'),el('h2','','Voltar ao início?'),el('p','','Perdes o progresso desta partida. Podes mudar o nível no ecrã inicial.'));
+  const s=el('button','btn','Sim, voltar'),n=el('button','btn','Continuar a jogar');
+  s.onclick=()=>{o.remove();goHome()};n.onclick=()=>o.remove();bx.append(s,n);o.append(bx);document.body.append(o);n.focus()};
 addEventListener('keydown',e=>{if(/INPUT|TEXTAREA/.test(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;
-  if(e.key==='p'||e.key==='P')pause(!paused);else if(e.key==='Escape'){if(paused)pause(false);$('mm').hidden=true;$('mb').setAttribute('aria-expanded','false')}});
+  if(e.key==='p'||e.key==='P')pause(!paused);else if(e.key==='Escape'){if(paused)pause(false);if($('homeov'))$('homeov').remove();$('mm').hidden=true;$('mb').setAttribute('aria-expanded','false')}});
 $('mb').onclick=e=>{e.stopPropagation();const m=$('mm');m.hidden=!m.hidden;$('mb').setAttribute('aria-expanded',String(!m.hidden))};
 document.addEventListener('click',e=>{const m=$('mm');if(!m.hidden&&!e.target.closest('#mw')){m.hidden=true;$('mb').setAttribute('aria-expanded','false')}});
 function dark(on){document.documentElement.classList.toggle('dark',on);$('dk').textContent=on?'☀️ Modo claro':'🌙 Modo escuro';try{localStorage.setItem('vbdark',on?'1':'0')}catch(e){}}
