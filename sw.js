@@ -1,5 +1,5 @@
-const C='vb-tic-v1';
-const F=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','icon-maskable-512.png'];
+const C='vb-tic-v2';
+const F=['./','index.html','manifest.webmanifest','icon-192.png','icon-512.png','icon-maskable-512.png','img/cpu.webp','img/ram.webp','img/ssd.webp','img/hdd.webp','img/mb.webp','img/gpu.webp','img/psu.webp','img/fan.webp','img/router.webp'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(F)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;
